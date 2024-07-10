@@ -1,15 +1,30 @@
 require('dotenv').config()
-const  Contact  = require('./models/Contact')
+const express = require('express')
 const sequelize = require('./connection')
+const router = require('./router')
+const controller = require('./controller')
 
-const defineRelations = () =>{
-    Contact.belongsTo(Contact,{foreignKey:'linkedId',as:"primaryContact"});
+const app = express()
+const PORT = process.env.PORT || 3000
+
+app.use(express.json());
+app.use('/', router);
+
+controller.defineRelations();
+const startServer = async () => {
+    try {
+        await sequelize.authenticate()
+            .then(async (resp) => {
+                console.log('DB connected successfully')
+            })
+
+        app.listen(PORT, () => {
+            console.log(`Server is running on port ${PORT}`);
+        });
+    }
+    catch (e) {
+        console.log("Error connecting", e);
+    }
 }
-sequelize.authenticate()
-.then(async(res)=>{
-   defineRelations();
-    // await sequelize.sync({force:true}).then(res=>{
-    //     Contact.bulkCreate([{email:"prat@gmail.com",phoneNumber:"1254"},{email:"hari@gmail.com",phoneNumber:"1254",linkedId:1,linkedPreference:"secondary"}])
-    // })
-    
-})
+startServer();
+
