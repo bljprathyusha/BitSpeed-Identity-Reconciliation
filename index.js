@@ -11,6 +11,7 @@ app.use(express.json());
 app.use('/', router);
 
 controller.defineRelations();
+//sequelize.sync({ force: true }); 
 const startServer = async () => {
     try {
         await sequelize.authenticate()
