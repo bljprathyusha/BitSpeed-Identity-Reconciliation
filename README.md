@@ -6,7 +6,7 @@
   ### Tech Stack : 
         Node.js,MySql
   ### Test Cases Handled : createdAt, updatedAt are automatically handled by Sequelize ORM
-      **Case-1:** Both email and phoneNumber are given.
+      ** Case-1: ** Both email and phoneNumber are given.
                   - If email and phoneNumber are **non-null** and **non-empty** values 
                       - **Case-1a:** Either of email or phone Number exists in DB and other field is new data - Creates a new secondary contact with this data,linking it to the primary contact with findPrimaryContact() method and fetches primary and all secondary contact details in response format.
                       - **Case-1b:** Both fields exists in DB and both point to same object : Fetches primary and all secondary contact details in response format.
